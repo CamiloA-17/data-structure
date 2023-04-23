@@ -129,7 +129,7 @@ class SingleLinkedList:
             while(index!= node_counter):
                 current_node= current_node.next
                 node_counter += 1
-            print(current_node.value)
+            return current_node.value
             
     def update_node_value(self, index, new_value):
         search_node= self.get_node(index)
@@ -154,6 +154,40 @@ class SingleLinkedList:
                 remove_node.next= None
             else:
                 print( ' >>No se encontro el nodo<< ')
+                
+    def revert_node_list(self):
+        if self.length==0:
+            print("No se puede invertir")
+        else:
+            previous_node=None
+            current_node=self.head
+            while current_node != None:
+                following_node= current_node.next
+                current_node.next = previous_node
+                previous_node=current_node
+                current_node=following_node
+            self.head= previous_node
+            
+    def remove_all_nodes(self):
+        self.head.next=None
+        self.head=None
+        self.tail=None
+        self.length=0
+        
+    def insert_node(self,value,index):
+        new_node = self.Node(value)
+        insert_node=self.get_node(index)
+        if insert_node!= None:
+            if index ==1:
+                new_node.next=self.head
+                self.head=new_node
+                self.length+=1
+            elif index<=self.length:
+                previous_node=self.get_node(index-1)
+                previous_node.next=new_node
+                new_node.next=insert_node
+        else:
+            print("No se encontro el nodo")
     
     
                 

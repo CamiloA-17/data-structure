@@ -24,13 +24,15 @@ class main:
         self.arbol_image = pygame.image.load("SuperHero/Images/arbol.png")
         self.nodo_image= pygame.image.load("SuperHero/Images/nodo.png")
         self.combo_functions_rect= pygame.Rect(351,185,242,37)
-        self.combo= ComboBox(self.window,['Añadir al inicio','Añadir al final','Eliminar de la lista'],self.combo_functions_rect,self.black_color,'Times New Roman',16,20,self.white_color,self.white_color,40,'MÉTODOS')
+        self.combo= ComboBox(self.window,['Añadir al inicio','Añadir al final','Eliminar al inicio','Eliminar al final','Invertir la lista', 'Eliminar todos los elementos','Eliminar por posicion','Añadir por posicion','Actualizar valor'],self.combo_functions_rect,self.black_color,'Times New Roman',16,20,self.white_color,self.white_color,40,'MÉTODOS')
         self.combo_selected= False
         self.combo_pos_rect= pygame.Rect(862,185,50,37)
-        self.combo_pos= ComboBox(self.window,['1','2','3','4','5','6'],self.combo_pos_rect,self.black_color,'Times New Roman',16,20,self.white_color,self.white_color,40,'A')
+        self.combo_pos= ComboBox(self.window,['1','2','3','4','5','6','7','8'],self.combo_pos_rect,self.black_color,'Times New Roman',16,20,self.white_color,self.white_color,40,'A')
         self.combo_pos_selected= False
         self.initial_window = True
         self.click_button= False
+        self.rect_aux= None
+        self.node_aux= None
         self.bools()
         
     def bools(self):
@@ -41,25 +43,25 @@ class main:
         self.youtube_bool= False
         self.appstore_bool= False
         
-    def selectedApp(self):
-        if self.spotify_rect.collidepoint(pygame.mouse.get_pos()):
-            self.spotify_bool=True
-            return 'Spotify'
-        elif self.whatsapp_rect.collidepoint(pygame.mouse.get_pos()):
-            self.whatsapp_bool= True
-            return 'Whatsapp'
-        elif self.twitter_rect.collidepoint(pygame.mouse.get_pos()):
-            self.twitter_bool= True
-            return 'Twitter'
-        elif self.discord_rect.collidepoint(pygame.mouse.get_pos()):
-            self.discord_bool= True
-            return 'Discord'
-        elif self.youtube_rect.collidepoint(pygame.mouse.get_pos()):
-            self.youtube_bool= True
-            return 'YouTube'
-        elif self.appstore_rect.collidepoint(pygame.mouse.get_pos()):
-            self.appstore_bool= True
-            return 'App Store'
+    # def selectedApp(self):
+    #     if self.spotify_rect.collidepoint(pygame.mouse.get_pos()):
+    #         self.spotify_bool=True
+    #         return 'Spotify'
+    #     elif self.whatsapp_rect.collidepoint(pygame.mouse.get_pos()):
+    #         self.whatsapp_bool= True
+    #         return 'Whatsapp'
+    #     elif self.twitter_rect.collidepoint(pygame.mouse.get_pos()):
+    #         self.twitter_bool= True
+    #         return 'Twitter'
+    #     elif self.discord_rect.collidepoint(pygame.mouse.get_pos()):
+    #         self.discord_bool= True
+    #         return 'Discord'
+    #     elif self.youtube_rect.collidepoint(pygame.mouse.get_pos()):
+    #         self.youtube_bool= True
+    #         return 'YouTube'
+    #     elif self.appstore_rect.collidepoint(pygame.mouse.get_pos()):
+    #         self.appstore_bool= True
+    #         return 'App Store'
 
     def run_app(self):
         while True:
@@ -74,7 +76,9 @@ class main:
                 else:
                     self.draw_sll_window()
                     self.combo.draw()
-                    self.combo_pos.draw()  
+                    self.combo_pos.draw()
+                    # self.select_image()
+                    # self.select_methods()  
             pygame.display.flip()    
             
     def rectGroup(self):
@@ -118,7 +122,7 @@ class main:
         self.window.fill(self.gray_color)
         self.top_rect=pygame.draw.rect(self.window,self.white_color,(0,0,1280,87),0,0)
         self.bottom_rect= pygame.draw.rect(self.window, self.white_color,(0,649,1280,71),0,0)
-        self.list_rect= pygame.draw.rect(self.window,self.white_color,(154,460,1020,159),0,20)
+        self.list_rect= pygame.draw.rect(self.window,self.white_color,(154,460,1044,159),0,20)
         self.button_rect= pygame.draw.rect(self.window,self.black_color,(959,185,129,38),0,20)
         self.text()
         agree_text= self.font.render('Aceptar', True,self.white_color)
@@ -137,9 +141,9 @@ class main:
         self.window.blit(self.appstore_image,(959,265))
         self.window.blit(self.uam_image,(1188,658))
         self.window.blit(self.github_image,(850,665)) 
-        self.methodsSelection()
         self.rectGroup()
-        self.visual_list()           
+        self.visual_list() 
+        self.select_image()          
     
     def initial(self):
             self.window.fill(self.gray_color)
@@ -176,32 +180,114 @@ class main:
                 self.initial_window = False
                 
     def visual_list(self):
+        gap=0
         for i in range(1,inst.length+1):
-            if inst.get_node_value(1)== 'Whatsapp':
-                self.window.blit(self.whatsapp_image, (164,472))
-            elif inst.get_node_value(1) == 'Spotify':
-                self.window.blit(self.spotify_image,(164,472))
-            elif inst.get_node_value(1) == 'Twitter':
-                self.window.blit(self.twitter_image,(164,472))
+            if inst.get_node_value(i)== 'Whatsapp':
+                self.window.blit(self.whatsapp_image, (164+gap,472))
+            elif inst.get_node_value(i) == 'Spotify':
+                self.window.blit(self.spotify_image,(164+gap,472))
+            elif inst.get_node_value(i) == 'Twitter':
+                self.window.blit(self.twitter_image,(164+gap,472))
+            elif inst.get_node_value(i) == 'Discord':
+                self.window.blit(self.discord_image,(164+gap,472))
+            elif inst.get_node_value(i) == 'YouTube':
+                self.window.blit(self.youtube_image,(164+gap,472))
+            elif inst.get_node_value(i) == 'App Store':
+                self.window.blit(self.appstore_image,(164+gap,472))    
+            gap+=130
             
                 
-    def clickOnButton(self):
-        self.methodsSelection()
-        if self.button_rect.collidepoint(pygame.mouse.get_pos()):
-            if pygame.mouse.get_pressed()[0] == True and not self.click_button:
-                inst.create_node_sll_unshift(self.dict[self.object])
-                self.click_button = True
-                return self.click_button
-        if not pygame.mouse.get_pressed()[0]:
-            self.click_button = False
-            return self.click_button
+    # def clickOnButton(self):
+    #     self.methodsSelection()
+    #     if self.button_rect.collidepoint(pygame.mouse.get_pos()):
+    #         if pygame.mouse.get_pressed()[0] == True and not self.click_button:
+    #             inst.create_node_sll_unshift(self.dict[self.object])
+    #             self.click_button = True
+    #             return self.click_button
+    #     if not pygame.mouse.get_pressed()[0]:
+    #         self.click_button = False
+    #         return self.click_button
      
-    def methodsSelection(self):
-        if self.spotify_bool or self.whatsapp_bool or self.twitter_bool or self.discord_bool or self.youtube_bool or self.appstore_bool:
-            if self.combo.getIndex() == '1':
-                inst.create_node_sll_unshift(self.selectedApp())
+    # def methodsSelection(self):
+    #     if self.spotify_bool or self.whatsapp_bool or self.twitter_bool or self.discord_bool or self.youtube_bool or self.appstore_bool:
+    #         if self.combo.getIndex() == '1':
+    #             inst.create_node_sll_unshift(self.selectedApp())
+    #             inst.show_list()
+       
+    
+    def select_image(self):
+        self.click_item= bool
+        if pygame.mouse.get_pressed()[0]:
+            if self.whatsapp_rect.collidepoint(pygame.mouse.get_pos()):
+                self.node_aux= 'Whatsapp'
+                print('Nodo seleccionado')
+            elif self.spotify_rect.collidepoint(pygame.mouse.get_pos()):
+                self.node_aux= 'Spotify'
+                print('Nodo seleccionado')
+            elif self.twitter_rect.collidepoint(pygame.mouse.get_pos()):
+                self.node_aux= 'Twitter'
+                print('Nodo seleccionado')
+            elif self.discord_rect.collidepoint(pygame.mouse.get_pos()):
+                self.node_aux= 'Discord'
+                print('Nodo seleccionado')
+            elif self.youtube_rect.collidepoint(pygame.mouse.get_pos()):
+                self.node_aux= 'YouTube'
+                print('Nodo seleccionado')
+            elif self.appstore_rect.collidepoint(pygame.mouse.get_pos()):
+                self.node_aux= 'App Store'
+                print('Nodo seleccionado')
+            if self.button_rect.collidepoint(pygame.mouse.get_pos()):
+                print('click en el boton')
+                if self.combo.getIndex()== 1:
+                    if self.node_aux is not None:                        
+                        inst.create_node_sll_unshift(self.node_aux)
+                        self.node_aux=None
+                        inst.show_list()
+                if self.combo.getIndex()== 2:
+                    if self.node_aux is not None:
+                        inst.create_node_sll_ends(self.node_aux)
+                        self.node_aux=None
+                        inst.show_list()
+                if self.combo.getIndex()== 3:
+                    inst.shift_node_sll()
+                    self.node_aux=None
+                    inst.show_list()
+                if self.combo.getIndex()== 4:
+                    inst.delete_node_sll_pop()
+                    self.node_aux=None
+                    inst.show_list()
+                if self.combo.getIndex()== 5:
+                    inst.revert_node_list()
+                    self.node_aux=None
+                    inst.show_list()
+                    # No funciona correctamente
+                if self.combo.getIndex()==6:
+                    inst.remove_all_nodes()
+                    self.node_aux=None
+                    inst.show_list()
+                if self.combo.getIndex()==7:
+                    inst.remove_node(self.combo_pos.getIndex())
+                    self.node_aux=None
+                    inst.show_list()
+                    # No funciona correctamente
+                if self.combo.getIndex()==8:
+                    if self.node_aux is not None:
+                        inst.insert_node(self.node_aux, self.combo_pos.getIndex())
+                        self.node_aux=None
+                        inst.show_list()
+                        # No funciona correctamente
+                if self.combo.getIndex()==9:
+                    if self.node_aux is not None:
+                        inst.update_node_value(self.combo_pos.getIndex(),self.node_aux)
+                        self.node_aux=None
+                        inst.show_list()
                 
-                             
+
+                    
+                        
+                    
+                
+                            
                     
                     
                     
