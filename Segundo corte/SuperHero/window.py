@@ -36,7 +36,7 @@ class main:
         self.rect_aux= None
         self.node_aux= None
         self.github_rect= pygame.Rect(850,665,38,36)
-        self.menu= Menu(self.window,{"SLL": "SuperHero/Images/menu.png", "DLL": "SuperHero/Images/menu.png", "Pilas y Colas": "SuperHero/Images/menu.png", "Arbol": "SuperHero/Images/arbol.png", "Grafos": "SuperHero/Images/nodo.png"},self.gray_color,90, "Arial", 22, self.black_color)
+        self.menu= Menu(self.window,{"SLL": "SuperHero/Images/menu.png", "DLL": "SuperHero/Images/menu.png", "Pilas y Colas": "SuperHero/Images/menu.png", "Arbol": "SuperHero/Images/arbol.png", "Grafos": "SuperHero/Images/nodo.png"},self.gray_color,90, "Times New Roman", 22, self.black_color)
         
         
     def run_app(self):
@@ -146,7 +146,7 @@ class main:
         self.whatsapp_rect_initial = pygame.Rect(608,271,114,135)
         self.twitter_rect_initial = pygame.Rect(798,271,114,135)  
         self.text()
-        init_text= self.font.render('PARA INICIAR DEBES SELECCINAR UNA IMAGEN QUE SERA LA CABEZA DE LA LISTA',True, self.black_color)
+        init_text= self.font.render('PARA INICIAR DEBES SELECCIONAR UNA IMAGEN QUE SERÁ LA CABEZA DE LA LISTA',True, self.black_color)
         self.window.blit(init_text,(341,220))
         self.window.blit(self.spotify_image, (418,271))
         self.window.blit(self.whatsapp_image,(608,271))
