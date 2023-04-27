@@ -206,5 +206,7 @@ class SingleLinkedList:
             return True
         return False
     
+    def get_length(self):
+        return self.length
     
                 

@@ -3,6 +3,7 @@ import webbrowser
 from pygame.locals import *
 from single_linked_list import SingleLinkedList
 from combo_box import ComboBox
+from menu import Menu
 inst=SingleLinkedList()
 class main:
     def __init__(self):
@@ -21,64 +22,40 @@ class main:
         self.discord_image = pygame.image.load("SuperHero/Images/discordNode.png")
         self.uam_image = pygame.image.load("SuperHero/Images/uam.png")
         self.github_image = pygame.image.load("SuperHero/Images/github.png")
-        self.options_image = pygame.image.load("SuperHero/Images/menu.png")
-        self.arbol_image = pygame.image.load("SuperHero/Images/arbol.png")
-        self.nodo_image= pygame.image.load("SuperHero/Images/nodo.png")
+        # self.options_image = pygame.image.load("SuperHero/Images/menu.png")
+        # self.arbol_image = pygame.image.load("SuperHero/Images/arbol.png")
+        # self.nodo_image= pygame.image.load("SuperHero/Images/nodo.png")
         self.combo_functions_rect= pygame.Rect(351,185,242,37)
         self.combo= ComboBox(self.window,['Añadir al inicio','Añadir al final','Eliminar al inicio','Eliminar al final','Invertir la lista', 'Eliminar todos los elementos','Eliminar por posicion','Añadir por posicion','Actualizar valor'],self.combo_functions_rect,self.black_color,'Times New Roman',16,20,self.white_color,self.white_color,40,' ')
         self.combo_selected= False
         self.combo_pos_rect= pygame.Rect(862,185,50,37)
-        self.combo_pos= ComboBox(self.window,['1','2','3','4','5','6','7','8'],self.combo_pos_rect,self.black_color,'Times New Roman',16,20,self.white_color,self.white_color,40,' ')
+        self.combo_pos= ComboBox(self.window,['1'],self.combo_pos_rect,self.black_color,'Times New Roman',16,20,self.white_color,self.white_color,40,' ')
         self.combo_pos_selected= False
         self.initial_window = True
         self.click_button= False
         self.rect_aux= None
         self.node_aux= None
         self.github_rect= pygame.Rect(850,665,38,36)
-        # self.bools()
+        self.menu= Menu(self.window,{"SLL": "SuperHero/Images/menu.png", "DLL": "SuperHero/Images/menu.png", "Pilas y Colas": "SuperHero/Images/menu.png", "Arbol": "SuperHero/Images/arbol.png", "Grafos": "SuperHero/Images/nodo.png"},self.gray_color,90, "Arial", 22, self.black_color)
         
-    # def bools(self):
-    #     self.spotify_bool= False
-    #     self.whatsapp_bool= False
-    #     self.twitter_bool= False
-    #     self.discord_bool= False
-    #     self.youtube_bool= False
-    #     self.appstore_bool= False
         
-    # def selectedApp(self):
-    #     if self.spotify_rect.collidepoint(pygame.mouse.get_pos()):
-    #         self.spotify_bool=True
-    #         return 'Spotify'
-    #     elif self.whatsapp_rect.collidepoint(pygame.mouse.get_pos()):
-    #         self.whatsapp_bool= True
-    #         return 'Whatsapp'
-    #     elif self.twitter_rect.collidepoint(pygame.mouse.get_pos()):
-    #         self.twitter_bool= True
-    #         return 'Twitter'
-    #     elif self.discord_rect.collidepoint(pygame.mouse.get_pos()):
-    #         self.discord_bool= True
-    #         return 'Discord'
-    #     elif self.youtube_rect.collidepoint(pygame.mouse.get_pos()):
-    #         self.youtube_bool= True
-    #         return 'YouTube'
-    #     elif self.appstore_rect.collidepoint(pygame.mouse.get_pos()):
-    #         self.appstore_bool= True
-    #         return 'App Store'
-
     def run_app(self):
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    sys.exit() 
-                if self.initial_window:
-                    self.initial()
-                    if event.type == pygame.MOUSEBUTTONDOWN:
-                        self.mouse_pos= pygame.mouse.get_pos()
-                        self.click_on_head()
-                else:
-                    self.draw_sll_window()
-                    self.combo.draw()
-                    self.combo_pos.draw()
+                    sys.exit()
+                if (self.menu.getSelectedOption()==0):
+                    if self.initial_window:
+                        self.initial()
+                    else:
+                        self.draw_sll_window()
+                        self.visual_list() 
+                        self.select_image()
+                        self.combo.draw()
+                        self.combo_pos.draw()
+                elif (self.menu.getSelectedOption()==1):
+                    pygame.draw.rect(self.window, self.black_color, (0, 40, self.window.get_width(), self.window.get_height() - 40))
+                self.menu.draw()
             pygame.display.flip()    
             
     def rectGroup(self):
@@ -98,31 +75,21 @@ class main:
         copyright_text= self.font.render('Desarrollado por : Camilo Andres Molano Aristizabal',True,self.black_color)
         copyright_2_text= self.font.render('@ I SEM -2023',True,self.black_color)
         self.url= "https://github.com/CamiloA-17/data-structure"
-        sll_option= self.font.render('SLL',True,self.black_color)
-        dll_option= self.font.render('DLL',True,self.black_color)
-        pyc_option= self.font.render('PILAS Y COLAS',True,self.black_color)
-        arbol_option= self.font.render('ÁRBOL',True,self.black_color)
-        grafo_option= self.font.render('GRAFO',True,self.black_color)
-        self.window.blit(sll_option,(89,30))
-        self.window.blit(dll_option,(312,30))
-        self.window.blit(pyc_option,(540,30))
-        self.window.blit(arbol_option,(874,30))
-        self.window.blit(grafo_option,(1134,30))
         self.window.blit(sll_text,(154,133))
         self.window.blit(status_text,(154,423))
         self.window.blit(copyright_text,(485,661))
         self.window.blit(copyright_2_text,(569,683))
-        self.window.blit(self.options_image,(40,27))
-        self.window.blit(self.options_image,(254,27))
-        self.window.blit(self.options_image,(485,27))
-        self.window.blit(self.arbol_image,(822,27))
-        self.window.blit(self.options_image,(1082,27))
+        # self.window.blit(self.options_image,(40,27))
+        # self.window.blit(self.options_image,(254,27))
+        # self.window.blit(self.options_image,(485,27))
+        # self.window.blit(self.arbol_image,(822,27))
+        # self.window.blit(self.options_image,(1082,27))
         
     def open_github(self):
         if pygame.mouse.get_pressed()[0]:
             if self.github_rect.collidepoint(pygame.mouse.get_pos()):
                 webbrowser.open(self.url)
-        
+                     
     def draw_dll_window(self):
         self.window.fill(self.gray_color)
         self.top_rect=pygame.draw.rect(self.window,self.white_color,(0,0,1280,87),0,0)
@@ -142,6 +109,8 @@ class main:
         self.open_github()        
     
     def draw_sll_window(self):
+        self.combo.draw()
+        self.combo_pos.draw()
         self.window.fill(self.gray_color)
         self.top_rect=pygame.draw.rect(self.window,self.white_color,(0,0,1280,87),0,0)
         self.bottom_rect= pygame.draw.rect(self.window, self.white_color,(0,649,1280,71),0,0)
@@ -165,9 +134,8 @@ class main:
         self.window.blit(self.uam_image,(1188,658))
         self.window.blit(self.github_image,(850,665)) 
         self.rectGroup()
-        self.visual_list() 
-        self.select_image()
-        self.open_github()          
+        self.open_github()
+                
     
     def initial(self):
         self.window.fill(self.gray_color)
@@ -185,7 +153,8 @@ class main:
         self.window.blit(self.twitter_image,(798,271))
         self.window.blit(self.uam_image,(1188,658))
         self.window.blit(self.github_image,(850,665))
-        self.open_github()          
+        self.open_github()
+        self.click_on_head()          
     
     def click_on_head(self):
         mouse_pos= pygame.mouse.get_pos()
@@ -260,43 +229,45 @@ class main:
                 print('Nodo seleccionado')
             if self.button_rect.collidepoint(pygame.mouse.get_pos()):
                 print('click en el boton')
-                if self.combo.getIndex()== 1:
+                if self.combo.getIndex()== 0 and inst.length<8:
                     if self.node_aux is not None:                        
                         inst.create_node_sll_unshift(self.node_aux)
                         self.node_aux=None
                         inst.show_list()
-                if self.combo.getIndex()== 2:
+                if self.combo.getIndex()== 1 and inst.length<8:
                     if self.node_aux is not None:
                         inst.create_node_sll_ends(self.node_aux)
                         self.node_aux=None
                         inst.show_list()
-                if self.combo.getIndex()== 3:
+                if self.combo.getIndex()== 2:
                     inst.shift_node_sll()
                     self.node_aux=None
                     inst.show_list()
-                if self.combo.getIndex()== 4:
+                if self.combo.getIndex()== 3:
                     inst.delete_node_sll_pop()
                     self.node_aux=None
                     inst.show_list()
-                if self.combo.getIndex()== 5:
+                if self.combo.getIndex()== 4:
                     inst.reverse()
                     self.node_aux=None
                     inst.show_list()
-                if self.combo.getIndex()==6:
+                if self.combo.getIndex()==5:
                     inst.remove_all_nodes()
                     self.node_aux=None
                     inst.show_list()
-                if self.combo.getIndex()==7:
-                    inst.remove_node(self.combo_pos.getIndex())
+                if self.combo.getIndex()==6:
+                    inst.remove_node(int(self.combo_pos.getValue()))
                     self.node_aux=None
                     inst.show_list()
+                if self.combo.getIndex()==7:
+                    if self.node_aux is not None and inst.length<8:
+                        inst.insert_node(int(self.combo_pos.getValue()),self.node_aux)
+                        self.node_aux=None
+                        inst.show_list()
                 if self.combo.getIndex()==8:
                     if self.node_aux is not None:
-                        inst.insert_node(self.combo_pos.getIndex(),self.node_aux)
+                        inst.update_node_value(int(self.combo_pos.getValue()),self.node_aux)
                         self.node_aux=None
                         inst.show_list()
-                if self.combo.getIndex()==9:
-                    if self.node_aux is not None:
-                        inst.update_node_value(self.combo_pos.getIndex(),self.node_aux)
-                        self.node_aux=None
-                        inst.show_list()
+            data_list = [str(x) for x in range(1, inst.get_length() + 1)]
+            self.combo_pos.updateOptions(data_list)
