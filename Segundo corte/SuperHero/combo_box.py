@@ -18,6 +18,7 @@ class ComboBox():
         self.combo_rect = pygame.Rect(self.x, self.y, self.width, self.height)
         self.combo_open = False
         self.select_dict = {}
+        self.initial_selected_value = initial_selected_value
         self.selected_index = -1
         self.selected_option = initial_selected_value
     
@@ -69,5 +70,5 @@ class ComboBox():
 
     def updateOptions(self, new_options):
         self.options = new_options
-        self.__init__(self.screen, self.options, self.rect, self.background_color, self.font_type, self.font_size, self.border_radius, self.text_options_color, self.text_selected_option_color, self.gap_value, self.selected_option)
+        self.__init__(self.screen, self.options, self.rect, self.background_color, self.font_type, self.font_size, self.border_radius, self.text_options_color, self.text_selected_option_color, self.gap_value, self.initial_selected_value)
 

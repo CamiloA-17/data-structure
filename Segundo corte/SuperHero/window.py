@@ -55,6 +55,14 @@ class main:
                         self.combo_pos.draw()
                 elif (self.menu.getSelectedOption()==1):
                     pygame.draw.rect(self.window, self.black_color, (0, 40, self.window.get_width(), self.window.get_height() - 40))
+                elif (self.menu.getSelectedOption()==2):
+                    pygame.draw.rect(self.window,self.gray_color,(0, 40, self.window.get_width(), self.window.get_height() - 40))
+                elif (self.menu.getSelectedOption()==3):
+                    pygame.draw.rect(self.window,self.black_color,(0, 40, self.window.get_width(), self.window.get_height() - 40))
+                elif (self.menu.getSelectedOption()==4):
+                    pygame.draw.rect(self.window,self.gray_color,(0, 40, self.window.get_width(), self.window.get_height() - 40))
+                elif (self.menu.getSelectedOption()==5):
+                    pygame.draw.rect(self.window,self.black_color,(0, 40, self.window.get_width(), self.window.get_height() - 40))
                 self.menu.draw()
             pygame.display.flip()    
             
@@ -230,44 +238,43 @@ class main:
             if self.button_rect.collidepoint(pygame.mouse.get_pos()):
                 print('click en el boton')
                 if self.combo.getIndex()== 0 and inst.length<8:
-                    if self.node_aux is not None:                        
+                    if self.node_aux is not None: 
+                        print("añadio")                       
                         inst.create_node_sll_unshift(self.node_aux)
-                        self.node_aux=None
                         inst.show_list()
                 if self.combo.getIndex()== 1 and inst.length<8:
                     if self.node_aux is not None:
                         inst.create_node_sll_ends(self.node_aux)
-                        self.node_aux=None
                         inst.show_list()
                 if self.combo.getIndex()== 2:
                     inst.shift_node_sll()
-                    self.node_aux=None
                     inst.show_list()
                 if self.combo.getIndex()== 3:
                     inst.delete_node_sll_pop()
-                    self.node_aux=None
                     inst.show_list()
                 if self.combo.getIndex()== 4:
                     inst.reverse()
-                    self.node_aux=None
                     inst.show_list()
                 if self.combo.getIndex()==5:
                     inst.remove_all_nodes()
                     self.node_aux=None
                     inst.show_list()
                 if self.combo.getIndex()==6:
-                    inst.remove_node(int(self.combo_pos.getValue()))
-                    self.node_aux=None
-                    inst.show_list()
+                    if self.combo_pos.getIndex() != -1:
+                        inst.remove_node(int(self.combo_pos.getValue()))
+                        self.node_aux=None
+                        inst.show_list()
                 if self.combo.getIndex()==7:
                     if self.node_aux is not None and inst.length<8:
-                        inst.insert_node(int(self.combo_pos.getValue()),self.node_aux)
-                        self.node_aux=None
-                        inst.show_list()
+                        if self.combo_pos.getIndex() != -1:
+                            inst.insert_node(int(self.combo_pos.getValue()),self.node_aux)
+                            self.node_aux=None
+                            inst.show_list()
                 if self.combo.getIndex()==8:
                     if self.node_aux is not None:
-                        inst.update_node_value(int(self.combo_pos.getValue()),self.node_aux)
-                        self.node_aux=None
-                        inst.show_list()
-            data_list = [str(x) for x in range(1, inst.get_length() + 1)]
-            self.combo_pos.updateOptions(data_list)
+                        if self.combo_pos.getIndex() != -1:
+                            inst.update_node_value(int(self.combo_pos.getValue()),self.node_aux)
+                            self.node_aux=None
+                            inst.show_list()
+                data_list = [str(x) for x in range(1, inst.get_length() + 1)]
+                self.combo_pos.updateOptions(data_list)
