@@ -26,7 +26,7 @@ class main:
         # self.arbol_image = pygame.image.load("SuperHero/Images/arbol.png")
         # self.nodo_image= pygame.image.load("SuperHero/Images/nodo.png")
         self.combo_functions_rect= pygame.Rect(351,185,242,37)
-        self.combo= ComboBox(self.window,['Añadir al inicio','Añadir al final','Eliminar al inicio','Eliminar al final','Invertir la lista', 'Eliminar todos los elementos','Eliminar por posicion','Añadir por posicion','Actualizar valor'],self.combo_functions_rect,self.black_color,'Times New Roman',16,20,self.white_color,self.white_color,40,' ')
+        self.combo= ComboBox(self.window,['Añadir al inicio','Añadir al final','Eliminar al inicio','Eliminar al final','Invertir la lista', 'Eliminar todos los elementos','Eliminar por posicion','Añadir por posicion','Actualizar valor','Eliminar duplicados','Agrupar duplicados'],self.combo_functions_rect,self.black_color,'Times New Roman',16,20,self.white_color,self.white_color,40,' ')
         self.combo_selected= False
         self.combo_pos_rect= pygame.Rect(862,185,50,37)
         self.combo_pos= ComboBox(self.window,['1'],self.combo_pos_rect,self.black_color,'Times New Roman',16,20,self.white_color,self.white_color,40,' ')
@@ -183,17 +183,17 @@ class main:
     def visual_list(self):
         gap=0
         for i in range(1,inst.length+1):
-            if inst.get_node_value(i)== 'Whatsapp':
+            if inst.get_node(i).value== 'Whatsapp':
                 self.window.blit(self.whatsapp_image, (164+gap,472))
-            elif inst.get_node_value(i) == 'Spotify':
+            elif inst.get_node(i).value == 'Spotify':
                 self.window.blit(self.spotify_image,(164+gap,472))
-            elif inst.get_node_value(i) == 'Twitter':
+            elif inst.get_node(i).value == 'Twitter':
                 self.window.blit(self.twitter_image,(164+gap,472))
-            elif inst.get_node_value(i) == 'Discord':
+            elif inst.get_node(i).value == 'Discord':
                 self.window.blit(self.discord_image,(164+gap,472))
-            elif inst.get_node_value(i) == 'YouTube':
+            elif inst.get_node(i).value == 'YouTube':
                 self.window.blit(self.youtube_image,(164+gap,472))
-            elif inst.get_node_value(i) == 'App Store':
+            elif inst.get_node(i).value == 'App Store':
                 self.window.blit(self.appstore_image,(164+gap,472))    
             gap+=130
 
@@ -237,15 +237,24 @@ class main:
                 print('Nodo seleccionado')
             if self.button_rect.collidepoint(pygame.mouse.get_pos()):
                 print('click en el boton')
-                if self.combo.getIndex()== 0 and inst.length<8:
-                    if self.node_aux is not None: 
-                        print("añadio")                       
-                        inst.create_node_sll_unshift(self.node_aux)
-                        inst.show_list()
-                if self.combo.getIndex()== 1 and inst.length<8:
-                    if self.node_aux is not None:
-                        inst.create_node_sll_ends(self.node_aux)
-                        inst.show_list()
+                if self.combo.getIndex()== 0:
+                    if inst.length<7:
+                        if self.node_aux is not None:                        
+                            inst.create_node_sll_unshift(self.node_aux)
+                            inst.show_list()
+                    else:
+                        text= self.font.render('>>ERROR: LIMITE ALCANZADO<<',True,self.black_color)
+                        self.window.blit(text,(906,628))
+                        print(">>ERROR: LIMITE ALCANZADO<<")
+                if self.combo.getIndex()== 1:
+                    if inst.length<7:
+                        if self.node_aux is not None:
+                            inst.create_node_sll_ends(self.node_aux)
+                            inst.show_list()
+                    else:
+                        text= self.font.render('>>ERROR: LIMITE ALCANZADO<<',True,self.black_color)
+                        self.window.blit(text,(906,628))
+                        print(">>ERROR: LIMITE ALCANZADO<<")
                 if self.combo.getIndex()== 2:
                     inst.shift_node_sll()
                     inst.show_list()
@@ -265,16 +274,25 @@ class main:
                         self.node_aux=None
                         inst.show_list()
                 if self.combo.getIndex()==7:
-                    if self.node_aux is not None and inst.length<8:
-                        if self.combo_pos.getIndex() != -1:
-                            inst.insert_node(int(self.combo_pos.getValue()),self.node_aux)
-                            self.node_aux=None
-                            inst.show_list()
+                    if self.node_aux is not None:
+                        if inst.length<7:
+                            if self.combo_pos.getIndex() != -1:
+                                inst.insert_node(int(self.combo_pos.getValue()),self.node_aux)
+                                self.node_aux=None
+                                inst.show_list()
+                        else:
+                            text= self.font.render('>>ERROR: LIMITE ALCANZADO<<',True,self.black_color)
+                            self.window.blit(text,(906,628))
+                            print(">>ERROR: LIMITE ALCANZADO<<")
                 if self.combo.getIndex()==8:
                     if self.node_aux is not None:
                         if self.combo_pos.getIndex() != -1:
                             inst.update_node_value(int(self.combo_pos.getValue()),self.node_aux)
                             self.node_aux=None
                             inst.show_list()
+                if self.combo.getIndex()==9:
+                    inst.remove_all_duplicates()
+                if self.combo.getIndex()==10:
+                    inst.group_all_duplicates()
                 data_list = [str(x) for x in range(1, inst.get_length() + 1)]
                 self.combo_pos.updateOptions(data_list)

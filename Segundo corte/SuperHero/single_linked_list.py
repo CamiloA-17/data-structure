@@ -22,7 +22,7 @@ class SingleLinkedList:
             # pasamos del nodo actual al siguiente nodo mediante el puntero
             current_node=current_node.next
         # imprimir valores de la lista
-        print({str(array_whit_nodes_value)})
+        return(array_whit_nodes_value)
     
     def create_node_sll_ends(self, value):
         #  creamos una variable que va a tener la estructura de un nodo
@@ -180,11 +180,14 @@ class SingleLinkedList:
             self.tail.next = None
             
     def remove_all_nodes(self):
-        self.head.next=None
-        self.head=None
-        self.tail=None
-        self.length=0
-        
+        if self.head is not None:
+            self.head.next=None
+            self.head=None
+            self.tail=None
+            self.length=0
+        else:
+            print('Nada para eliminar')
+            
     def insert_node(self, index, value):
         if self.length !=8:
             print(f"\n >>>>>> Agregar nodo en la posición {index} <<<<<<")
@@ -208,5 +211,122 @@ class SingleLinkedList:
     
     def get_length(self):
         return self.length
+              
+    # def has_duplicate(self,value):
+    #     cont=0
+    #     for item in self.show_list():
+    #         if item == value:
+    #             cont+=1
+    #     if cont >=2:
+    #         return True
+    #     else:
+    #         return False
+
+    def remove_by_value(self,value):
+        if self.head == None:
+            print("lista vacia")
+        elif self.head.value == value:
+            self.shift_node_sll()
+        elif self.tail.value == value:
+            self.delete_node_sll_pop()
+        else:
+            index=1
+            current_node=self.head
+            while current_node != None:
+                if current_node.value == value:
+                    previous_node = self.get_node(index- 1)
+                    previous_node.next = current_node.next
+                    current_node.next=None
+                current_node=current_node.next
+                index+=1
+            self.length-=1
+            
+    def get_index_by_value(self,value):
+        if self.head == None:
+            print("lista vacia")
+        elif self.head.value == value:
+            self.shift_node_sll()
+        elif self.tail.value == value:
+            self.delete_node_sll_pop()
+        else:
+            index=1
+            current_node=self.head
+            while current_node != None:
+                if current_node.value == value:
+                    return index
+                index+=1
+                current_node=current_node.next
+            return
+                
+    # def eliminate_duplicates(self, value):
+    #     current_node = self.head
+    #     if self.search_duplicates(value) > 1:
+    #         value_count = self.search_duplicates(value)
+    #         while(current_node != None) and value_count>1:
+    #             aux = current_node.next
+    #             if current_node.value == value:
+    #                 index = self.search_an_element_and_return_index(value)
+    #                 self.remove_node(index)
+    #                 value_count-=1
+    #             current_node = aux
+                
+    def search_an_element_and_return_index(self, value):
+        if(self.length==0):
+            print('La lista esta vacia')
+        elif(self.head.value==value):
+            print('El indice donde se encuentra el elemento es 1')
+            return 1
+        elif(self.tail.value==value):
+            print('El indice en el que se encuentra el elemento es: ',self.length)
+            return self.length
+        else:
+            current_node=self.head
+            counter=1
+            while(current_node!=None):
+                if(current_node.value==value):
+                    print('El elemento se encuentra en la posicion', counter)
+                    break
+                    return counter
+                else:
+                    current_node=current_node.next
+                    counter+=1
+                if(counter==self.length):
+                    print('El elemento buscado no se encuentra')  
+
+
+    def search_duplicates(self, value):
+        current_node = self.head
+        cant= 0
+        while(current_node != None):
+            if current_node.value == value:
+                cant +=1
+            current_node = current_node.next
+        return cant
+    
+    def remove_all_duplicates(self):
+        if self.head is None:
+            return
+        current_node = self.head
+        values = set()
+        while current_node is not None:
+            if current_node.value in values:
+                self.remove_by_value(current_node.value)
+            values.add(current_node.value)
+            current_node = current_node.next
+        
+    def group_all_duplicates(self):
+        array_duplicates = list()
+        current_node = self.head 
+        while(current_node != None):
+            array_duplicates.append(current_node.value)
+            current_node = current_node.next
+        array_duplicates.sort()
+        for i in range(self.length):
+            self.update_node_value(i+1, array_duplicates[i])
+        print (self.length)
+        print(array_duplicates)
+                
+                    
+                
     
                 
