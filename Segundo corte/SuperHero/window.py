@@ -1,9 +1,12 @@
 import pygame, sys
 import webbrowser
-from pygame.locals import *
+from pygame.locals import * 
 from single_linked_list import SingleLinkedList
 from combo_box import ComboBox
 from menu import Menu
+from blackjack import BlackJack
+from card import Card
+from player import Player
 inst=SingleLinkedList()
 class main:
     def __init__(self):
@@ -22,9 +25,6 @@ class main:
         self.discord_image = pygame.image.load("SuperHero/Images/discordNode.png")
         self.uam_image = pygame.image.load("SuperHero/Images/uam.png")
         self.github_image = pygame.image.load("SuperHero/Images/github.png")
-        # self.options_image = pygame.image.load("SuperHero/Images/menu.png")
-        # self.arbol_image = pygame.image.load("SuperHero/Images/arbol.png")
-        # self.nodo_image= pygame.image.load("SuperHero/Images/nodo.png")
         self.combo_functions_rect= pygame.Rect(351,185,242,37)
         self.combo= ComboBox(self.window,['Añadir al inicio','Añadir al final','Eliminar al inicio','Eliminar al final','Invertir la lista', 'Eliminar todos los elementos','Eliminar por posicion','Añadir por posicion','Actualizar valor','Eliminar duplicados','Agrupar duplicados'],self.combo_functions_rect,self.black_color,'Times New Roman',16,20,self.white_color,self.white_color,40,' ')
         self.combo_selected= False
@@ -36,7 +36,8 @@ class main:
         self.rect_aux= None
         self.node_aux= None
         self.github_rect= pygame.Rect(850,665,38,36)
-        self.menu= Menu(self.window,{"SLL": "SuperHero/Images/menu.png", "DLL": "SuperHero/Images/menu.png", "Pilas y Colas": "SuperHero/Images/menu.png", "Arbol": "SuperHero/Images/arbol.png", "Grafos": "SuperHero/Images/nodo.png"},self.gray_color,90, "Times New Roman", 22, self.black_color)
+        self.menu= Menu(self.window,{"SLL": "SuperHero/Images/menu.png", "Pilas": "SuperHero/Images/menu.png", "Grafos": "SuperHero/Images/nodo.png"},self.gray_color,90, "Times New Roman", 22, self.black_color)
+        self.blackjack= BlackJack(self.window)
         
         
     def run_app(self):
@@ -54,15 +55,10 @@ class main:
                         self.combo.draw()
                         self.combo_pos.draw()
                 elif (self.menu.getSelectedOption()==1):
-                    pygame.draw.rect(self.window, self.black_color, (0, 40, self.window.get_width(), self.window.get_height() - 40))
+                    self.blackjack.draw()
+                    self.open_github()
                 elif (self.menu.getSelectedOption()==2):
                     pygame.draw.rect(self.window,self.gray_color,(0, 40, self.window.get_width(), self.window.get_height() - 40))
-                elif (self.menu.getSelectedOption()==3):
-                    pygame.draw.rect(self.window,self.black_color,(0, 40, self.window.get_width(), self.window.get_height() - 40))
-                elif (self.menu.getSelectedOption()==4):
-                    pygame.draw.rect(self.window,self.gray_color,(0, 40, self.window.get_width(), self.window.get_height() - 40))
-                elif (self.menu.getSelectedOption()==5):
-                    pygame.draw.rect(self.window,self.black_color,(0, 40, self.window.get_width(), self.window.get_height() - 40))
                 self.menu.draw()
             pygame.display.flip()    
             
@@ -87,35 +83,12 @@ class main:
         self.window.blit(status_text,(154,423))
         self.window.blit(copyright_text,(485,661))
         self.window.blit(copyright_2_text,(569,683))
-        # self.window.blit(self.options_image,(40,27))
-        # self.window.blit(self.options_image,(254,27))
-        # self.window.blit(self.options_image,(485,27))
-        # self.window.blit(self.arbol_image,(822,27))
-        # self.window.blit(self.options_image,(1082,27))
         
     def open_github(self):
         if pygame.mouse.get_pressed()[0]:
             if self.github_rect.collidepoint(pygame.mouse.get_pos()):
                 webbrowser.open(self.url)
-                     
-    def draw_dll_window(self):
-        self.window.fill(self.gray_color)
-        self.top_rect=pygame.draw.rect(self.window,self.white_color,(0,0,1280,87),0,0)
-        self.bottom_rect= pygame.draw.rect(self.window, self.white_color,(0,649,1280,71),0,0)
-        self.list_rect= pygame.draw.rect(self.window,self.white_color,(154,460,1020,159),0,20)
-        self.spotify_rect_initial = pygame.Rect(418,271,114,135)
-        self.whatsapp_rect_initial = pygame.Rect(608,271,114,135)
-        self.twitter_rect_initial = pygame.Rect(798,271,114,135)  
-        self.text()
-        init_text= self.font.render('PARA INICIAR DEBES SELECCINAR UNA IMAGEN QUE SERA LA CABEZA DE LA LISTA',True, self.black_color)
-        self.window.blit(init_text,(341,220))
-        self.window.blit(self.spotify_image, (418,271))
-        self.window.blit(self.whatsapp_image,(608,271))
-        self.window.blit(self.twitter_image,(798,271))
-        self.window.blit(self.uam_image,(1188,658))
-        self.window.blit(self.github_image,(850,665))
-        self.open_github()        
-    
+
     def draw_sll_window(self):
         self.combo.draw()
         self.combo_pos.draw()
@@ -183,36 +156,19 @@ class main:
     def visual_list(self):
         gap=0
         for i in range(1,inst.length+1):
-            if inst.get_node(i).value== 'Whatsapp':
+            if inst.get_node_value(i)== 'Whatsapp':
                 self.window.blit(self.whatsapp_image, (164+gap,472))
-            elif inst.get_node(i).value == 'Spotify':
+            elif inst.get_node_value(i)== 'Spotify':
                 self.window.blit(self.spotify_image,(164+gap,472))
-            elif inst.get_node(i).value == 'Twitter':
+            elif inst.get_node_value(i) == 'Twitter':
                 self.window.blit(self.twitter_image,(164+gap,472))
-            elif inst.get_node(i).value == 'Discord':
+            elif inst.get_node_value(i) == 'Discord':
                 self.window.blit(self.discord_image,(164+gap,472))
-            elif inst.get_node(i).value == 'YouTube':
+            elif inst.get_node_value(i) == 'YouTube':
                 self.window.blit(self.youtube_image,(164+gap,472))
-            elif inst.get_node(i).value == 'App Store':
+            elif inst.get_node_value(i) == 'App Store':
                 self.window.blit(self.appstore_image,(164+gap,472))    
             gap+=130
-
-    # def clickOnButton(self):
-    #     self.methodsSelection()
-    #     if self.button_rect.collidepoint(pygame.mouse.get_pos()):
-    #         if pygame.mouse.get_pressed()[0] == True and not self.click_button:
-    #             inst.create_node_sll_unshift(self.dict[self.object])
-    #             self.click_button = True
-    #             return self.click_button
-    #     if not pygame.mouse.get_pressed()[0]:
-    #         self.click_button = False
-    #         return self.click_button
-
-    # def methodsSelection(self):
-    #     if self.spotify_bool or self.whatsapp_bool or self.twitter_bool or self.discord_bool or self.youtube_bool or self.appstore_bool:
-    #         if self.combo.getIndex() == '1':
-    #             inst.create_node_sll_unshift(self.selectedApp())
-    #             inst.show_list()
 
     def select_image(self):
         # self.click_item= bool
