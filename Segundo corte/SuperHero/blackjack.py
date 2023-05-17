@@ -11,12 +11,14 @@ class BlackJack:
         self.stay_button= pygame.image.load("SuperHero/Images/blackjackimages/button-stay.png")
         self.request_button= pygame.image.load("SuperHero/Images/blackjackimages/crupier.png")
         self.bench= pygame.image.load("SuperHero/Images/blackjackimages/bench.png")
+        self.restart_button= pygame.image.load("SuperHero/Images/blackjackimages/button-restart.png")
         self.button_color= (238,35,35)
         self.white_color=(255,255,255)
         self.red_color=(255,0,0)
         self.font=pygame.font.SysFont('Times New Roman',20)
         self.font.set_bold(True)
         self.start_game_text= self.font.render('Para iniciar presione el boton start',True,self.white_color)
+        self.restart_game_text= self.font.render('Presione para reiniciar',True,self.white_color)
         self.player1_win= self.font.render('HAS GANADO!', True, self.white_color)
         self.player2_win= self.font.render('HAS GANADO!', True, self.white_color)
         self.player3_win= self.font.render('HAS GANADO!', True, self.white_color)
@@ -26,6 +28,7 @@ class BlackJack:
         self.player3_lose= self.font.render('HAS PERDIDO!', True, self.white_color)
         self.crupier_lose= self.font.render('HAS PERDIDO!', True, self.white_color)
         self.start_button_rect= pygame.Rect(395,97,109,31)
+        self.restart_button_rect= pygame.Rect(244,140,109,31)
         self.stay_player1_rect= pygame.Rect(68,461,171,31)
         self.stay_player2_rect= pygame.Rect(634,569,171,31)
         self.stay_player3_rect= pygame.Rect(1017,461,171,31)
@@ -39,6 +42,8 @@ class BlackJack:
         self.players= [self.player1,self.player2,self.player3]
         self.turn_player=1
         self.clicked= True
+        self.start_game_validation= False
+        self.restart= False
         self.starter_stack()
 
     def draw(self):
@@ -50,6 +55,8 @@ class BlackJack:
         self.window.blit(self.stay_button,(1017,461))
         self.window.blit(self.request_button,(508,102))
         self.window.blit(self.start_game_text,(70,102))
+        self.window.blit(self.restart_game_text,(45,145))
+        self.window.blit(self.restart_button,(244,140))
         self.render_text('JUGADOR 1',98,504,self.white_color)
         self.render_text('JUGADOR 2',668,603,self.white_color)
         self.render_text('JUGADOR 3',1051,504,self.white_color)    
@@ -58,6 +65,7 @@ class BlackJack:
         self.crupier.draw()
         self.start_game()
         self.rounds_game()
+        self.restart_game()
 
     def starter_stack(self):
         while len(self.stack)<26:
@@ -85,7 +93,7 @@ class BlackJack:
 
     def start_game(self):
         if pygame.mouse.get_pressed()[0] and not self.clicked:
-            if self.start_button_rect.collidepoint(pygame.mouse.get_pos()):
+            if self.start_button_rect.collidepoint(pygame.mouse.get_pos()) and not self.start_game_validation:
                 print("Click en botón")
                 for player in self.players:
                     player.add_cards(self.stack.pop())
@@ -94,53 +102,56 @@ class BlackJack:
                 card.reversed=True
                 self.crupier.add_cards(card)
                 self.crupier.add_cards(self.stack.pop())
+                self.start_game_validation= True
         if not pygame.mouse.get_pressed()[0]:
             self.clicked = False
 
     def rounds_game(self):
         # ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        if self.turn_player==1:
-            self.render_text('JUGADOR 1',98,504,self.red_color)
-            if self.player1.want_cards(self.request_button_rect):
-                self.player1.add_cards(self.stack.pop())
-                if self.player1.control:
+        if self.start_game_validation:    
+            if self.turn_player==1:
+                self.render_text('JUGADOR 1',98,504,self.red_color)
+                if self.player1.want_cards(self.request_button_rect):
+                    self.player1.add_cards(self.stack.pop())
+                    if self.player1.control:
+                        self.turn_player+=1
+                    print('jugador 1: ', self.player1.control)
+                elif self.player1.want_stay(self.stay_player1_rect):
+                    self.render_text('JUGADOR 1',98,504,self.white_color)
                     self.turn_player+=1
-                print('jugador 1: ', self.player1.control)
-            elif self.player1.want_stay(self.stay_player1_rect):
-                self.render_text('JUGADOR 1',98,504,self.white_color)
-                self.turn_player+=1
-        #Lógica jugador 2
-        elif self.turn_player==2:
-            self.render_text('JUGADOR 2',668,603,self.red_color)
-            if self.player2.want_cards(self.request_button_rect):
-                self.player2.add_cards(self.stack.pop())
-                if self.player2.control:
+            #Lógica jugador 2
+            elif self.turn_player==2:
+                self.render_text('JUGADOR 2',668,603,self.red_color)
+                if self.player2.want_cards(self.request_button_rect):
+                    self.player2.add_cards(self.stack.pop())
+                    if self.player2.control:
+                        self.turn_player+=1
+                    print('jugador 2: ' ,self.player2.control)
+                elif self.player2.want_stay(self.stay_player2_rect):
+                    self.render_text('JUGADOR 2',668,603,self.white_color)
                     self.turn_player+=1
-                print('jugador 2: ' ,self.player2.control)
-            elif self.player2.want_stay(self.stay_player2_rect):
-                self.render_text('JUGADOR 2',668,603,self.white_color)
-                self.turn_player+=1
-        #Lógica jugador 3
-        elif self.turn_player==3:
-            self.render_text('JUGADOR 3',1051,504,self.red_color)    
-            if self.player3.want_cards(self.request_button_rect):
-                self.player3.add_cards(self.stack.pop())
-                if self.player3.control:
+            #Lógica jugador 3
+            elif self.turn_player==3:
+                self.render_text('JUGADOR 3',1051,504,self.red_color)    
+                if self.player3.want_cards(self.request_button_rect):
+                    self.player3.add_cards(self.stack.pop())
+                    if self.player3.control:
+                        self.turn_player+=1
+                    print('jugador 3: ' ,self.player1.control)
+                elif self.player3.want_stay(self.stay_player3_rect):
+                    self.render_text('JUGADOR 3',1051,504,self.white_color)
                     self.turn_player+=1
-                print('jugador 3: ' ,self.player1.control)
-            elif self.player3.want_stay(self.stay_player3_rect):
-                self.render_text('JUGADOR 3',1051,504,self.white_color)
-                self.turn_player+=1
-        # Lógica crupier
-        elif self.turn_player==4:
-            reversed_card= self.crupier.hand[0]
-            reversed_card.reversed= False
-            if self.crupier.crupier_want_cards():
-                self.crupier.add_cards(self.stack.pop())
-            else:
-                self.turn_player=0
-        elif self.turn_player==0:
-            self.win_game()
+                    print(self.turn_player)
+            # Lógica crupier
+            if self.turn_player==4:
+                reversed_card= self.crupier.hand[0]
+                reversed_card.reversed= False
+                if self.crupier.crupier_want_cards():
+                    self.crupier.add_cards(self.stack.pop())
+                else:
+                    self.turn_player=0
+            if self.turn_player==0:
+                self.win_game()
             
     def win_game(self):
         for player in self.players:
@@ -158,4 +169,9 @@ class BlackJack:
         text= self.font.render(txt, True,color)
         self.window.blit(text,(x,y))
 
+    def restart_game(self):
+        if pygame.mouse.get_pressed()[0]:
+            if self.restart_button_rect.collidepoint(pygame.mouse.get_pos()):
+                self.__init__(self.window)
+        
 

@@ -1,0 +1,547 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Miguel Watkins",
+      "email": "Miguel Watkins@example.com",
+      "birthdate": "1990-01-01",
+      "profile_image_url": "https://avatars.dicebear.com/api/male/Miguel%20Watkins.png",
+      "liked_photos": [],
+      "family": [],
+      "groups": [],
+      "communities": []
+    },
+    {
+      "id": 2,
+      "name": "Melanie Brooks",
+      "email": "Melanie Brooks@example.com",
+      "birthdate": "1990-01-01",
+      "profile_image_url": "https://avatars.dicebear.com/api/male/Melanie%20Brooks.png",
+      "liked_photos": [],
+      "family": [
+        {
+          "name": "Miguel Watkins",
+          "relation": "Mother"
+        }
+      ],
+      "groups": [],
+      "communities": []
+    },
+    {
+      "id": 3,
+      "name": "Michael Davis",
+      "email": "Michael Davis@example.com",
+      "birthdate": "1990-01-01",
+      "profile_image_url": "https://avatars.dicebear.com/api/female/Michael%20Davis.png",
+      "liked_photos": [],
+      "family": [
+        {
+          "name": "Miguel Watkins",
+          "relation": "Sibling"
+        },
+        {
+          "name": "Melanie Brooks",
+          "relation": "Sibling"
+        }
+      ],
+      "groups": [],
+      "communities": []
+    },
+    {
+      "id": 4,
+      "name": "Drew Guzman",
+      "email": "Drew Guzman@example.com",
+      "birthdate": "1990-01-01",
+      "profile_image_url": "https://avatars.dicebear.com/api/female/Drew%20Guzman.png",
+      "liked_photos": [],
+      "family": [
+        {
+          "name": "Melanie Brooks",
+          "relation": "Mother"
+        },
+        {
+          "name": "Miguel Watkins",
+          "relation": "Father"
+        }
+      ],
+      "groups": [],
+      "communities": []
+    },
+    {
+      "id": 5,
+      "name": "Victoria Baker",
+      "email": "Victoria Baker@example.com",
+      "birthdate": "1990-01-01",
+      "profile_image_url": "https://avatars.dicebear.com/api/male/Victoria%20Baker.png",
+      "liked_photos": [],
+      "family": [
+        {
+          "name": "Miguel Watkins",
+          "relation": "Mother"
+        },
+        {
+          "name": "Michael Davis",
+          "relation": "Father"
+        }
+      ],
+      "groups": [],
+      "communities": []
+    },
+    {
+      "id": 6,
+      "name": "Gina Murphy",
+      "email": "Gina Murphy@example.com",
+      "birthdate": "1990-01-01",
+      "profile_image_url": "https://avatars.dicebear.com/api/male/Gina%20Murphy.png",
+      "liked_photos": [],
+      "family": [
+        {
+          "name": "Drew Guzman",
+          "relation": "Sibling"
+        },
+        {
+          "name": "Melanie Brooks",
+          "relation": "Sibling"
+        },
+        {
+          "name": "Michael Davis",
+          "relation": "Mother"
+        }
+      ],
+      "groups": [],
+      "communities": []
+    },
+    {
+      "id": 7,
+      "name": "Michael Carney",
+      "email": "Michael Carney@example.com",
+      "birthdate": "1990-01-01",
+      "profile_image_url": "https://avatars.dicebear.com/api/female/Michael%20Carney.png",
+      "liked_photos": [],
+      "family": [
+        {
+          "name": "Victoria Baker",
+          "relation": "Father"
+        },
+        {
+          "name": "Gina Murphy",
+          "relation": "Sibling"
+        },
+        {
+          "name": "Drew Guzman",
+          "relation": "Sibling"
+        }
+      ],
+      "groups": [],
+      "communities": []
+    },
+    {
+      "id": 8,
+      "name": "Deanna Pitts",
+      "email": "Deanna Pitts@example.com",
+      "birthdate": "1990-01-01",
+      "profile_image_url": "https://avatars.dicebear.com/api/male/Deanna%20Pitts.png",
+      "liked_photos": [],
+      "family": [
+        {
+          "name": "Drew Guzman",
+          "relation": "Father"
+        },
+        {
+          "name": "Michael Carney",
+          "relation": "Sibling"
+        }
+      ],
+      "groups": [],
+      "communities": []
+    },
+    {
+      "id": 9,
+      "name": "Corey Smith",
+      "email": "Corey Smith@example.com",
+      "birthdate": "1990-01-01",
+      "profile_image_url": "https://avatars.dicebear.com/api/female/Corey%20Smith.png",
+      "liked_photos": [],
+      "family": [
+        {
+          "name": "Victoria Baker",
+          "relation": "Mother"
+        },
+        {
+          "name": "Miguel Watkins",
+          "relation": "Sibling"
+        }
+      ],
+      "groups": [],
+      "communities": []
+    },
+    {
+      "id": 10,
+      "name": "Paul Lewis",
+      "email": "Paul Lewis@example.com",
+      "birthdate": "1990-01-01",
+      "profile_image_url": "https://avatars.dicebear.com/api/male/Paul%20Lewis.png",
+      "liked_photos": [],
+      "family": [
+        {
+          "name": "Miguel Watkins",
+          "relation": "Sibling"
+        },
+        {
+          "name": "Deanna Pitts",
+          "relation": "Father"
+        },
+        {
+          "name": "Drew Guzman",
+          "relation": "Sibling"
+        }
+      ],
+      "groups": [],
+      "communities": []
+    },
+    {
+      "id": 11,
+      "name": "Laura Mayer",
+      "email": "Laura Mayer@example.com",
+      "birthdate": "1990-01-01",
+      "profile_image_url": "https://avatars.dicebear.com/api/female/Laura%20Mayer.png",
+      "liked_photos": [],
+      "family": [
+        {
+          "name": "Paul Lewis",
+          "relation": "Father"
+        },
+        {
+          "name": "Melanie Brooks",
+          "relation": "Father"
+        },
+        {
+          "name": "Miguel Watkins",
+          "relation": "Sibling"
+        }
+      ],
+      "groups": [],
+      "communities": []
+    },
+    {
+      "id": 12,
+      "name": "Devon Roman",
+      "email": "Devon Roman@example.com",
+      "birthdate": "1990-01-01",
+      "profile_image_url": "https://avatars.dicebear.com/api/male/Devon%20Roman.png",
+      "liked_photos": [],
+      "family": [
+        {
+          "name": "Deanna Pitts",
+          "relation": "Father"
+        },
+        {
+          "name": "Melanie Brooks",
+          "relation": "Father"
+        }
+      ],
+      "groups": [],
+      "communities": []
+    },
+    {
+      "id": 13,
+      "name": "Kelly Pierce",
+      "email": "Kelly Pierce@example.com",
+      "birthdate": "1990-01-01",
+      "profile_image_url": "https://avatars.dicebear.com/api/male/Kelly%20Pierce.png",
+      "liked_photos": [],
+      "family": [
+        {
+          "name": "Paul Lewis",
+          "relation": "Mother"
+        },
+        {
+          "name": "Laura Mayer",
+          "relation": "Father"
+        }
+      ],
+      "groups": [],
+      "communities": []
+    },
+    {
+      "id": 14,
+      "name": "Allison Valenzuela",
+      "email": "Allison Valenzuela@example.com",
+      "birthdate": "1990-01-01",
+      "profile_image_url": "https://avatars.dicebear.com/api/female/Allison%20Valenzuela.png",
+      "liked_photos": [],
+      "family": [
+        {
+          "name": "Kelly Pierce",
+          "relation": "Father"
+        },
+        {
+          "name": "Devon Roman",
+          "relation": "Mother"
+        },
+        {
+          "name": "Melanie Brooks",
+          "relation": "Sibling"
+        }
+      ],
+      "groups": [],
+      "communities": []
+    },
+    {
+      "id": 15,
+      "name": "Matthew Rodriguez",
+      "email": "Matthew Rodriguez@example.com",
+      "birthdate": "1990-01-01",
+      "profile_image_url": "https://avatars.dicebear.com/api/female/Matthew%20Rodriguez.png",
+      "liked_photos": [],
+      "family": [
+        {
+          "name": "Drew Guzman",
+          "relation": "Mother"
+        },
+        {
+          "name": "Paul Lewis",
+          "relation": "Sibling"
+        },
+        {
+          "name": "Gina Murphy",
+          "relation": "Sibling"
+        }
+      ],
+      "groups": [],
+      "communities": []
+    },
+    {
+      "id": 16,
+      "name": "Susan Smith",
+      "email": "Susan Smith@example.com",
+      "birthdate": "1990-01-01",
+      "profile_image_url": "https://avatars.dicebear.com/api/female/Susan%20Smith.png",
+      "liked_photos": [],
+      "family": [
+        {
+          "name": "Corey Smith",
+          "relation": "Mother"
+        },
+        {
+          "name": "Gina Murphy",
+          "relation": "Mother"
+        },
+        {
+          "name": "Drew Guzman",
+          "relation": "Sibling"
+        }
+      ],
+      "groups": [],
+      "communities": []
+    },
+    {
+      "id": 17,
+      "name": "Tyler Simon",
+      "email": "Tyler Simon@example.com",
+      "birthdate": "1990-01-01",
+      "profile_image_url": "https://avatars.dicebear.com/api/male/Tyler%20Simon.png",
+      "liked_photos": [],
+      "family": [
+        {
+          "name": "Corey Smith",
+          "relation": "Sibling"
+        },
+        {
+          "name": "Susan Smith",
+          "relation": "Sibling"
+        },
+        {
+          "name": "Miguel Watkins",
+          "relation": "Father"
+        }
+      ],
+      "groups": [],
+      "communities": []
+    },
+    {
+      "id": 18,
+      "name": "Jordan Cooper",
+      "email": "Jordan Cooper@example.com",
+      "birthdate": "1990-01-01",
+      "profile_image_url": "https://avatars.dicebear.com/api/male/Jordan%20Cooper.png",
+      "liked_photos": [],
+      "family": [
+        {
+          "name": "Matthew Rodriguez",
+          "relation": "Father"
+        },
+        {
+          "name": "Paul Lewis",
+          "relation": "Father"
+        },
+        {
+          "name": "Victoria Baker",
+          "relation": "Father"
+        }
+      ],
+      "groups": [],
+      "communities": []
+    },
+    {
+      "id": 19,
+      "name": "Gabriella Davis",
+      "email": "Gabriella Davis@example.com",
+      "birthdate": "1990-01-01",
+      "profile_image_url": "https://avatars.dicebear.com/api/male/Gabriella%20Davis.png",
+      "liked_photos": [],
+      "family": [
+        {
+          "name": "Miguel Watkins",
+          "relation": "Father"
+        },
+        {
+          "name": "Gina Murphy",
+          "relation": "Mother"
+        },
+        {
+          "name": "Jordan Cooper",
+          "relation": "Mother"
+        }
+      ],
+      "groups": [],
+      "communities": []
+    },
+    {
+      "id": 20,
+      "name": "John Wagner",
+      "email": "John Wagner@example.com",
+      "birthdate": "1990-01-01",
+      "profile_image_url": "https://avatars.dicebear.com/api/male/John%20Wagner.png",
+      "liked_photos": [],
+      "family": [
+        {
+          "name": "Laura Mayer",
+          "relation": "Father"
+        },
+        {
+          "name": "Gina Murphy",
+          "relation": "Father"
+        },
+        {
+          "name": "Devon Roman",
+          "relation": "Sibling"
+        }
+      ],
+      "groups": [],
+      "communities": []
+    }
+  ],
+  "relationships": {
+    "1": [
+      7,
+      17,
+      19,
+      10,
+      9
+    ],
+    "2": [
+      9,
+      17,
+      13,
+      3
+    ],
+    "3": [
+      18,
+      1,
+      13,
+      19,
+      5
+    ],
+    "4": [
+      6
+    ],
+    "5": [
+      12,
+      2,
+      3,
+      10
+    ],
+    "6": [
+      1,
+      19,
+      8,
+      17,
+      13
+    ],
+    "7": [
+      11,
+      8
+    ],
+    "8": [
+      9,
+      14,
+      8
+    ],
+    "9": [
+      16,
+      7,
+      6,
+      9,
+      5
+    ],
+    "10": [
+      20,
+      4,
+      6
+    ],
+    "11": [
+      11,
+      12,
+      10
+    ],
+    "12": [
+      15,
+      6,
+      2,
+      19
+    ],
+    "13": [
+      17,
+      1,
+      10,
+      4
+    ],
+    "14": [
+      19
+    ],
+    "15": [
+      17,
+      6,
+      16,
+      10
+    ],
+    "16": [
+      19,
+      20,
+      13
+    ],
+    "17": [
+      5,
+      12,
+      17,
+      13
+    ],
+    "18": [
+      10,
+      20
+    ],
+    "19": [
+      6,
+      1,
+      4
+    ],
+    "20": [
+      19,
+      20,
+      15,
+      3,
+      12
+    ]
+  }
+}
