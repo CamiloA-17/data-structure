@@ -47,7 +47,6 @@ class BlackJack:
         self.starter_stack()
 
     def draw(self):
-        
         self.window.blit(self.background_blackjack,(0,87))
         self.window.blit(self.start_button,(395,97))
         self.window.blit(self.stay_button,(68,461))
@@ -57,9 +56,9 @@ class BlackJack:
         self.window.blit(self.start_game_text,(70,102))
         self.window.blit(self.restart_game_text,(45,145))
         self.window.blit(self.restart_button,(244,140))
-        self.render_text('JUGADOR 1',98,504,self.white_color)
-        self.render_text('JUGADOR 2',668,603,self.white_color)
-        self.render_text('JUGADOR 3',1051,504,self.white_color)    
+        self.render_text('JUGADOR 1: ' + str(self.player1.score),68,504,self.white_color)
+        self.render_text('JUGADOR 2: ' + str(self.player2.score),638,603,self.white_color)
+        self.render_text('JUGADOR 3: ' + str(self.player3.score),1021,504,self.white_color)    
         for player in self.players:
             player.draw()
         self.crupier.draw()
@@ -110,38 +109,37 @@ class BlackJack:
         # ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         if self.start_game_validation:    
             if self.turn_player==1:
-                self.render_text('JUGADOR 1',98,504,self.red_color)
+                self.render_text('JUGADOR 1: ' + str(self.player1.score),68,504,self.red_color)
                 if self.player1.want_cards(self.request_button_rect):
                     self.player1.add_cards(self.stack.pop())
                     if self.player1.control:
                         self.turn_player+=1
                     print('jugador 1: ', self.player1.control)
                 elif self.player1.want_stay(self.stay_player1_rect):
-                    self.render_text('JUGADOR 1',98,504,self.white_color)
+                    self.render_text('JUGADOR 1: ' + str(self.player1.score),68,504,self.white_color)
                     self.turn_player+=1
             #Lógica jugador 2
             elif self.turn_player==2:
-                self.render_text('JUGADOR 2',668,603,self.red_color)
+                self.render_text('JUGADOR 2: ' + str(self.player2.score),638,603,self.red_color)
                 if self.player2.want_cards(self.request_button_rect):
                     self.player2.add_cards(self.stack.pop())
                     if self.player2.control:
                         self.turn_player+=1
                     print('jugador 2: ' ,self.player2.control)
                 elif self.player2.want_stay(self.stay_player2_rect):
-                    self.render_text('JUGADOR 2',668,603,self.white_color)
+                    self.render_text('JUGADOR 2: ' + str(self.player2.score),638,603,self.white_color)
                     self.turn_player+=1
             #Lógica jugador 3
             elif self.turn_player==3:
-                self.render_text('JUGADOR 3',1051,504,self.red_color)    
+                self.render_text('JUGADOR 3: ' + str(self.player3.score),1021,504,self.red_color)    
                 if self.player3.want_cards(self.request_button_rect):
                     self.player3.add_cards(self.stack.pop())
                     if self.player3.control:
                         self.turn_player+=1
                     print('jugador 3: ' ,self.player1.control)
                 elif self.player3.want_stay(self.stay_player3_rect):
-                    self.render_text('JUGADOR 3',1051,504,self.white_color)
+                    self.render_text('JUGADOR 3: '+ str(self.player3.score),1021,504,self.white_color)
                     self.turn_player+=1
-                    print(self.turn_player)
             # Lógica crupier
             if self.turn_player==4:
                 reversed_card= self.crupier.hand[0]
@@ -173,5 +171,5 @@ class BlackJack:
         if pygame.mouse.get_pressed()[0]:
             if self.restart_button_rect.collidepoint(pygame.mouse.get_pos()):
                 self.__init__(self.window)
-        
+
 

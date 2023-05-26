@@ -1,12 +1,12 @@
 import pygame, sys
 import webbrowser
-from pygame.locals import * 
+from pygame.locals import *
 from single_linked_list import SingleLinkedList
 from combo_box import ComboBox
 from menu import Menu
 from blackjack import BlackJack
-from card import Card
-from player import Player
+from graph import Graph
+
 inst=SingleLinkedList()
 class main:
     def __init__(self):
@@ -36,8 +36,9 @@ class main:
         self.rect_aux= None
         self.node_aux= None
         self.github_rect= pygame.Rect(850,665,38,36)
-        self.menu= Menu(self.window,{"SLL": "SuperHero/Images/menu.png", "Pilas": "SuperHero/Images/menu.png", "Grafos": "SuperHero/Images/nodo.png"},self.gray_color,90, "Times New Roman", 22, self.black_color)
+        self.menu= Menu(self.window,{"SLL": "SuperHero/Images/menu.png", "Pilas": "SuperHero/Images/menu.png", "Grafos": "SuperHero/Images/nodo.png"},self.white_color,90, "Times New Roman", 22, self.black_color)
         self.blackjack= BlackJack(self.window)
+        self.graph= Graph(self.window)
         
         
     def run_app(self):
@@ -58,10 +59,11 @@ class main:
                     self.blackjack.draw()
                     self.open_github()
                 elif (self.menu.getSelectedOption()==2):
-                    pygame.draw.rect(self.window,self.gray_color,(0, 40, self.window.get_width(), self.window.get_height() - 40))
+                    self.graph.draw_graph()
+                    self.open_github()
                 self.menu.draw()
             pygame.display.flip()    
-            
+
     def rectGroup(self):
         self.discord_rect = pygame.Rect(683,265,114,135)
         self.spotify_rect = pygame.Rect(269,265,114,135)
@@ -69,7 +71,7 @@ class main:
         self.twitter_rect = pygame.Rect(545,265,114,135)                 
         self.youtube_rect = pygame.Rect(821,265,114,135)
         self.appstore_rect = pygame.Rect(959,265,114,135) 
-    
+
     def text(self):
         pygame.display.set_caption('App management')
         self.font.set_bold(True)
@@ -83,7 +85,7 @@ class main:
         self.window.blit(status_text,(154,423))
         self.window.blit(copyright_text,(485,661))
         self.window.blit(copyright_2_text,(569,683))
-        
+
     def open_github(self):
         if pygame.mouse.get_pressed()[0]:
             if self.github_rect.collidepoint(pygame.mouse.get_pos()):
@@ -116,8 +118,7 @@ class main:
         self.window.blit(self.github_image,(850,665)) 
         self.rectGroup()
         self.open_github()
-                
-    
+
     def initial(self):
         self.window.fill(self.gray_color)
         self.top_rect=pygame.draw.rect(self.window,self.white_color,(0,0,1280,87),0,0)
@@ -136,7 +137,7 @@ class main:
         self.window.blit(self.github_image,(850,665))
         self.open_github()
         self.click_on_head()          
-    
+
     def click_on_head(self):
         mouse_pos= pygame.mouse.get_pos()
         if pygame.mouse.get_pressed()[0]:
